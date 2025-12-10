@@ -1,1 +1,6 @@
-# higher-or-lower
+Deployment steps:
+Run `node server.js`
+
+TODO:
+[] cache images
+[] improve css

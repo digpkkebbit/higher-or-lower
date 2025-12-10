@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Higher or lower</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <h1>Is the right item's value HIGHER or LOWER</h1>
+  <div id="game">
+    <div class="item" id="left-item">
+      <img src="" alt="Left item" id="left-img">
+      <h2 id="left-name"></h2>
+      <h3 id="left-price"></h3>
+
+    </div>
+
+    <div class="vs">VS</div>
+
+    <div class="item" id="right-item">
+      <img src="" alt="Right item" id="right-img">
+      <h2 id="right-name"></h2>
+    </div>
+  </div>
+
+  <div id="buttons">
+    <button onclick="makeGuess('higher')">Higher</button>
+    <button onclick="makeGuess('lower')">Lower</button>
+  </div>
+
+  <div id="result"></div>
+  <div id="score"></div>
+
+  <script src="app.js"></script>
+</body>
+
+</html>
