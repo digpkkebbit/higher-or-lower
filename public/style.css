@@ -18,9 +18,10 @@ body {
 }
 
 .item img {
-  width: 100%;
-  border: 2px solid #555;
-  border-radius: 8px;
+  width: clamp(120px, 20vw, 200px);
+  height: auto;
+  object-fit: contain;
+  max-height:15vw;
 }
 
 .vs {
