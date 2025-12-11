@@ -1,6 +1,5 @@
-const icon_url = "https://services.runescape.com/m=itemdb_oldschool/obj_big.gif?id="
-let itemsData = {};
-let usedIds = new Set();
+const getWikiFileURL = (id) => `https://chisel.weirdgloop.org/static/img/osrs-dii/${id}.png`
+
 let leftItem = null;
 let rightItem = null;
 let score = 0;
@@ -12,11 +11,11 @@ async function getRandomItem() {
 }
 
 function displayItems() {
-  document.getElementById("left-img").src = `${icon_url}${leftItem.id}`;
+  document.getElementById("left-img").src = getWikiFileURL(leftItem.id);
   document.getElementById("left-name").textContent = leftItem.name;
   document.getElementById("left-price").textContent = `${leftItem.price.toLocaleString()} gp`;
 
-  document.getElementById("right-img").src = `${icon_url}${rightItem.id}`;
+  document.getElementById("right-img").src = getWikiFileURL(rightItem.id);
   document.getElementById("right-name").textContent = rightItem.name;
 }
 
