@@ -1,37 +1,52 @@
 const getWikiFileURL = (id) => `https://chisel.weirdgloop.org/static/img/osrs-dii/${id}.png`
 
+const leftImgElem = document.getElementById("left-img");
+const leftNameElem = document.getElementById("left-name");
+const leftPriceElem = document.getElementById("left-price");
+
+const rightImgElem = document.getElementById("right-img");
+const rightNameElem = document.getElementById("right-name");
+
+const resultElem = document.getElementById("result");
+const scoreElem = document.getElementById("score");
+const buttonsElem = document.getElementById("buttons");
+
 let leftItem = null;
 let rightItem = null;
-let score = 0;
+
+const scoreCounter = () => {
+  let score = 0;
+  return () => ++score;
+};
+
+const score = scoreCounter();
 
 async function getRandomItem() {
   const res = await fetch('/api/randomItem');
-  const item = await res.json();
-  return item;
+  return await res.json();
 }
 
 function displayItems() {
-  document.getElementById("left-img").src = getWikiFileURL(leftItem.id);
-  document.getElementById("left-name").textContent = leftItem.name;
-  document.getElementById("left-price").textContent = `${leftItem.price.toLocaleString()} gp`;
+  leftImgElem.src = getWikiFileURL(leftItem.id);
+  leftNameElem.textContent = leftItem.name;
+  leftPriceElem.textContent = `${leftItem.price.toLocaleString()} gp`;
 
-  document.getElementById("right-img").src = getWikiFileURL(rightItem.id);
-  document.getElementById("right-name").textContent = rightItem.name;
+  rightImgElem.src = getWikiFileURL(rightItem.id);
+  rightNameElem.textContent = rightItem.name;
 }
 
 async function makeGuess(guess) {
   const actual = rightItem.price > leftItem.price ? 'higher' : 'lower';
 
   if (guess === actual || rightItem.price === leftItem.price) {
-    ++score;
     leftItem = rightItem;
     rightItem = await getRandomItem();
     displayItems();
-    document.getElementById("result").textContent = "Correct!";
-    document.getElementById("score").textContent = `Score: ${score}`;
+    resultElem.textContent = "Correct!";
+    scoreElem.textContent = `Score: ${score()}`;
   } else {
-    document.getElementById("result").textContent = `Game Over! The price was ${rightItem.price.toLocaleString()} gp.`;
-    document.getElementById("buttons").style.display = "none";
+    resultElem.textContent = `Game Over! The price was ${rightItem.price.toLocaleString()} gp.`;
+    buttonsElem.style.display = "none";
   }
 }
 
