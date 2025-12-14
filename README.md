@@ -2,8 +2,9 @@ Deployment steps:
 Run `node server.js`
 
 TODO:
-- [ ] cache images
-- [ ] improve animations
-- [ ] add highscore
-- [ ] remove DMM exclusive items (trinkets, sigils, overloads)
-- [x] improve css
+[ ] mobile css
+[ ] cache images
+[ ] fix animation text flash
+[ ] remove DMM exclusive items (trinkets, sigils, overloads)
+[x] add highscore
+[x] improve css
