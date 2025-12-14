@@ -2,7 +2,7 @@ import 'dotenv/config';
 import express from "express";
 import path from "path";
 import { fileURLToPath } from "url";
-import { fetchGEDump, fetchItemsMapping } from './fetch-wiki.js';
+import { fetchGEDump } from './fetch-wiki.js';
 
 const app = express();
 const PORT = 3000;
@@ -29,8 +29,8 @@ const updateItems = async () => {
 // Update items cache on server start
 await updateItems();
 
-// Refetch items every 10mins
-setInterval(updateItems, 10 * 60 * 1000);
+// Refetch items every hour
+setInterval(updateItems, 60 * 60 * 1000);
 
 
 // --- API ---

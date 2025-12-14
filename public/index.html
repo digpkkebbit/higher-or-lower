@@ -8,30 +8,35 @@
 </head>
 
 <body>
-  <h1>Is the right item's value HIGHER or LOWER</h1>
-  <div id="game">
-    <div class="item" id="left-item">
-      <img src="" alt="Left item" id="left-img">
-      <h2 id="left-name"></h2>
-      <h3 id="left-price"></h3>
+  <div id="game-container">
+    <div class="game-column">
+      <div id="highscore">Highscore: 0</div>
+
+      <div class="item" id="left-item">
+        <img src="" alt="Left item" id="left-img">
+        <p id="left-name"></p>
+        <p id="worth">is worth</p>
+        <p id="left-price"></p>
+      </div>
     </div>
+    <div class="divider"></div>
+    <div class="game-column">
+      <div id="score">Score: 0</div>
 
-    <div class="vs">VS</div>
+      <div class="item" id="right-item">
+        <img src="" alt="Right item" id="right-img">
+        <p id="right-name"></p>
+        <p id="worth">is worth</p>
+        <p id="result" class="hidden"></p>
 
-    <div class="item" id="right-item">
-      <img src="" alt="Right item" id="right-img">
-      <h2 id="right-name"></h2>
+        <div id="buttons">
+          <button onclick="makeGuess('higher')">Higher</button>
+          <button onclick="makeGuess('lower')">Lower</button>
+        </div>
+
+      </div>
     </div>
   </div>
-
-  <div id="buttons">
-    <button onclick="makeGuess('higher')">Higher</button>
-    <button onclick="makeGuess('lower')">Lower</button>
-  </div>
-
-  <div id="result"></div>
-  <div id="score"></div>
-
   <script src="app.js"></script>
 </body>
 
