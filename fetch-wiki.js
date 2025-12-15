@@ -1,6 +1,8 @@
-const WIKI_GE_DUMP = "https://chisel.weirdgloop.org/gazproj/gazbot/os_dump.json";
+const WIKI_GE_DUMP = "https://prices.runescape.wiki/api/v1/osrs/1h";
+const WIKI_GE_MAPPING = "https://chisel.weirdgloop.org/gazproj/gazbot/os_dump.json";
 
 export const fetchGEDump = async () => fetchWiki(WIKI_GE_DUMP);
+export const fetchGEMapping = async () => fetchWiki(WIKI_GE_MAPPING);
 
 const fetchWiki = async (url) => {
     try {
