@@ -82,7 +82,7 @@ async function makeGuess(guess) {
     updateHighscore(currentScore);
     displayScores(currentScore);
 
-    resultElem.textContent = rightItem.price.toLocaleString();
+    resultElem.textContent = `${rightItem.price.toLocaleString()} gp`;
     resultElem.classList.remove("hidden");
     resultElem.classList.add("animate");
     buttonsElem.classList.add("hidden");
