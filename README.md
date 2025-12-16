@@ -2,6 +2,7 @@ Deployment steps:
 Run `node server.js`
 
 TODO:
+- [ ] better higher/lower buttons
 - [ ] game over screen
 - [ ] mobile css
 - [ ] cache images
