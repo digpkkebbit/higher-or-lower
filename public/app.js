@@ -7,7 +7,7 @@ const waitForEvent = (element, event) => {
   });
 }
 
-const waitForTransition = element => waitForEvent(element, "transitionend");
+//const waitForTransition = element => waitForEvent(element, "transitionend");
 const waitForAnimation = element => waitForEvent(element, "animationend");
 
 // Wait for an <img> element to finish loading
@@ -52,21 +52,40 @@ let rightItem = null;
 
 const score = (() => {
   let value = 0;
-  return () => ++value;
+  return {
+    increment() {
+      return ++value;
+    },
+    get() {
+      return value;
+    }
+  };
 })();
 
 async function getRandomItem() {
   const res = await fetch('/api/randomItem');
+  if (!res.ok) throw new Error("Failed to fetch item");
   return await res.json();
 }
 
-function displayItems() {
+async function displayItems() {
+  leftImgElem.src = "";
   leftImgElem.src = getWikiFileURL(leftItem.id);
   leftNameElem.textContent = leftItem.name;
   leftPriceElem.textContent = `${leftItem.price.toLocaleString()} gp`;
 
+  rightItemElem.classList.add("hidden");
+  rightImgElem.src = "";
   rightImgElem.src = getWikiFileURL(rightItem.id);
   rightNameElem.textContent = rightItem.name;
+  await waitForImage(rightImgElem);
+  rightItemElem.classList.remove("hidden");
+
+  // Remove pop-in animation after first load
+  if (score.get() === 0) {
+    await waitForAnimation(leftItemElem);
+    leftItemElem.classList.remove("animate");
+  }
 }
 
 function displayScores(score) {
@@ -78,14 +97,14 @@ async function makeGuess(guess) {
   const actual = rightItem.price > leftItem.price ? 'higher' : 'lower';
 
   if (guess === actual || rightItem.price === leftItem.price) {
-    const currentScore = score();
+    const currentScore = score.increment();
     updateHighscore(currentScore);
     displayScores(currentScore);
 
     resultElem.textContent = `${rightItem.price.toLocaleString()} gp`;
-    resultElem.classList.remove("hidden");
+    resultElem.classList.remove("no-display");
     resultElem.classList.add("animate");
-    buttonsElem.classList.add("hidden");
+    buttonsElem.classList.add("no-display");
 
     await waitForAnimation(resultElem);
 
@@ -101,17 +120,19 @@ async function makeGuess(guess) {
     // Swap items
     leftItem = rightItem;
     rightItem = await getRandomItem();
-    displayItems();
-    await waitForImage(rightImgElem);
 
     leftItemElem.classList.remove("slide-left");
     rightItemElem.classList.remove("slide-right");
 
-    resultElem.classList.add("hidden");
-    buttonsElem.classList.remove("hidden");
+    // Wait for next animation frame
+    await new Promise(requestAnimationFrame);
+    await displayItems();
+
+    resultElem.classList.add("no-display");
+    buttonsElem.classList.remove("no-display");
   } else {
-    buttonsElem.classList.add("hidden");
-    resultElem.classList.remove("hidden");
+    buttonsElem.classList.add("no-display");
+    resultElem.classList.remove("no-display");
     resultElem.classList.add("animate");
     resultElem.textContent = `Game Over! The price was ${rightItem.price.toLocaleString()} gp.`;
   }
