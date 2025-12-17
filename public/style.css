@@ -1,3 +1,8 @@
+@font-face {
+  font-family: "Runescape";
+  src: url("/fonts/RuneScape-Plain-12.ttf") format('truetype'),
+    url("/fonts/RuneScape-Bold-12.ttf") format('truetype');
+}
 
 * {
   box-sizing: border-box;
@@ -5,22 +10,45 @@
   padding: 0;
 }
 
-html, body {
+html,
+body {
   height: 100%;
   background: #111;
   color: #fff;
-  font-family: Arial, sans-serif;
+  font-family: "Runescape";
   text-align: center;
 }
 
-.hidden { visibility: hidden; }
-.no-display { display: none; }
-.animate { animation: pop 0.6s ease; }
-.no-transition { transition: none !important; }
+body button {
+  font-family: "Runescape";
+}
+
+.hidden {
+  visibility: hidden !important;
+}
+
+.no-display {
+  display: none !important;
+}
+
+.no-transition {
+  transition: none !important;
+}
+
+.animate {
+  animation: pop 0.6s ease;
+}
 
 @keyframes pop {
-  0% { transform: scale(0.8); opacity: 0; }
-  100% { transform: scale(1); opacity: 1; }
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 #game-container {
@@ -38,8 +66,7 @@ html, body {
 #highscore,
 #score {
   padding: 16px;
-  font-size: 1.2rem;
-  font-weight: bold;
+  font-size: 2rem;
   text-align: center;
 }
 
@@ -54,24 +81,43 @@ html, body {
   text-align: center;
 }
 
-.item #worth{
+.item #worth {
   color: lightgray;
   font-size: clamp(0.8rem, 1.5vw, 2.5rem);
 }
 
 /* Slide animations */
 @keyframes slide-left {
-  0%   { transform: translateX(0); opacity: 1; }
-  100% { transform: translateX(-100%); opacity: 0; }
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
 }
 
 @keyframes slide-right {
-  0%   { transform: translateX(0%); opacity: 1; }
-  100% { transform: translateX(-100%); opacity: 1; }
+  0% {
+    transform: translateX(0%);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateX(-100%);
+    opacity: 1;
+  }
 }
 
-.slide-left { animation: slide-left 0.6s forwards; }
-.slide-right { animation: slide-right 0.6s forwards; }
+.slide-left {
+  animation: slide-left 0.6s forwards;
+}
+
+.slide-right {
+  animation: slide-right 0.6s forwards;
+}
 
 .item img {
   max-width: 50%;
@@ -82,4 +128,63 @@ html, body {
 .divider {
   width: 4px;
   background-color: #ccc;
+}
+
+#gameover-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.gameover-popup {
+  background: #111;
+  color: #fff;
+  padding: 4rem 6rem;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.gameover-popup h1 {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
+
+.gameover-popup p {
+  font-size: 2rem;
+}
+
+.gameover-popup button {
+  margin-top: 1.5rem;
+}
+
+button {
+  padding: 0.6rem 1.5rem;
+  font-size: 2rem;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+#buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+button:hover {
+  color: #000;
+  background: #555555;
+}
+
+#higher-btn:hover {
+  color: #fff;
+  background: #008000;
+}
+
+#lower-btn:hover {
+  color: #fff;
+  background: #ff0000;
 }

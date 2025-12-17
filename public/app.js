@@ -47,6 +47,17 @@ const scoreElem = document.getElementById("score");
 const highscoreElem = document.getElementById("highscore");
 const buttonsElem = document.getElementById("buttons");
 
+const higherBtn = document.getElementById("higher-btn");
+const lowerBtn = document.getElementById("lower-btn");
+
+const overlay = document.getElementById("gameover-overlay");
+const finalScore = document.getElementById("final-score");
+const restartBtn = document.getElementById("restart-btn");
+
+restartBtn.addEventListener("click", restartGame);
+higherBtn.addEventListener("click", () => makeGuess("higher"));
+lowerBtn.addEventListener("click", () => makeGuess("lower"));
+
 let leftItem = null;
 let rightItem = null;
 
@@ -57,6 +68,10 @@ const score = (() => {
       return ++value;
     },
     get() {
+      return value;
+    },
+    reset() {
+      value = 0;
       return value;
     }
   };
@@ -101,10 +116,10 @@ async function makeGuess(guess) {
     updateHighscore(currentScore);
     displayScores(currentScore);
 
+    buttonsElem.classList.add("no-display");
     resultElem.textContent = `${rightItem.price.toLocaleString()} gp`;
     resultElem.classList.remove("no-display");
     resultElem.classList.add("animate");
-    buttonsElem.classList.add("no-display");
 
     await waitForAnimation(resultElem);
 
@@ -131,18 +146,34 @@ async function makeGuess(guess) {
     resultElem.classList.add("no-display");
     buttonsElem.classList.remove("no-display");
   } else {
+    resultElem.textContent = `${rightItem.price.toLocaleString()} gp`;
     buttonsElem.classList.add("no-display");
     resultElem.classList.remove("no-display");
     resultElem.classList.add("animate");
-    resultElem.textContent = `Game Over! The price was ${rightItem.price.toLocaleString()} gp.`;
+    await waitForAnimation(resultElem);
+    showGameOver(score.get());
   }
+}
+
+function showGameOver(score) {
+  finalScore.textContent = score;
+  overlay.classList.remove("hidden");
+}
+
+function restartGame() {
+  overlay.classList.add("hidden");
+  buttonsElem.classList.remove("no-display");
+  resultElem.classList.add("no-display");
+  resultElem.classList.remove("animate");
+  score.reset();
+  startGame();
 }
 
 async function startGame() {
   leftItem = await getRandomItem();
   rightItem = await getRandomItem();
   displayItems();
-  highscoreElem.textContent = `Highscore: ${getHighscore()}`;
+  displayScores(0);
 }
 
 window.onload = startGame;

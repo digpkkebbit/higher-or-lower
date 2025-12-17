@@ -4,6 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Higher or lower</title>
+  <link id="favicon" rel="icon" href="/favicons/kebbit.png">
   <link rel="stylesheet" href="style.css">
 </head>
 
@@ -30,11 +31,18 @@
         <p id="result" class="no-display"></p>
 
         <div id="buttons">
-          <button onclick="makeGuess('higher')">Higher</button>
-          <button onclick="makeGuess('lower')">Lower</button>
+          <button id="higher-btn">More</button>
+          <button id="lower-btn">Less</button>
         </div>
 
       </div>
+    </div>
+  </div>
+  <div id="gameover-overlay" class="hidden">
+    <div class="gameover-popup">
+      <h1>Game Over</h1>
+      <p>Score: <strong id="final-score">0</strong></p>
+      <button id="restart-btn">Restart</button>
     </div>
   </div>
   <script src="app.js"></script>
